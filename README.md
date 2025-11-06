@@ -49,13 +49,13 @@ two ways of running IdentityHub:
 1. As native Java process
 2. Inside a Docker image
 
-### Build the `*.jar` file
+### A) Build the `*.jar` file
 
 ```bash
 ./gradlew :launcher:identityhub:shadowJar
 ```
 
-### Start IdentityHub as Java process
+### B) 1. Start IdentityHub as Java process
 
 Once the jar file is built, IdentityHub can be launched using this shell command:
 
@@ -73,7 +73,7 @@ this will expose the Presentation API at `http://localhost:10001/api/presentatio
 at `http://localhost:8182/api/identity`. More information about IdentityHub's APIs can be
 found [here](docs/developer/architecture/identityhub-apis.md)
 
-### Create the Docker image
+### B) 2. Create the Docker image
 
 ```bash
 docker build -t identity-hub ./launcher/identityhub
@@ -82,14 +82,14 @@ docker build -t identity-hub ./launcher/identityhub
 ### Start the Identity Hub
 
 ```bash
-docker run -d --rm --name identityhub \
-            -e "WEB_HTTP_IDENTITY_PORT=8182" \
-            -e "WEB_HTTP_IDENTITY_PATH=/api/identity" \
-            -e "WEB_HTTP_PRESENTATION_PORT=10001" \
-            -e "WEB_HTTP_PRESENTATION_PATH=/api/presentation" \
-            -e "EDC_IAM_STS_PRIVATEKEY_ALIAS=privatekey-alias" \
-            -e "EDC_IAM_STS_PUBLICKEY_ID=publickey-id" \
-            identityhub:latest
+docker run -d --rm --name identity-hub `
+    -e "WEB_HTTP_IDENTITY_PORT=8182" `
+    -e "WEB_HTTP_IDENTITY_PATH=/api/identity" `
+    -e "WEB_HTTP_PRESENTATION_PORT=10001" `
+    -e "WEB_HTTP_PRESENTATION_PATH=/api/presentation" `
+    -e "EDC_IAM_STS_PRIVATEKEY_ALIAS=privatekey-alias" `
+    -e "EDC_IAM_STS_PUBLICKEY_ID=publickey-id" `
+    identity-hub:latest
 ```
 
 ## Architectural concepts of IdentityHub
