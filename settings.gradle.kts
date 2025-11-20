@@ -138,3 +138,4 @@ include(":dist:bom:issuerservice-bom")
 include(":dist:bom:issuerservice-feature-sql-bom")
 
 include("extensions:superuser-seed")
+include("extensions:issuance-flow")
