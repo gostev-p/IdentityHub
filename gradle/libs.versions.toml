@@ -88,6 +88,10 @@ edc-sql-jtivdalidation = { module = "org.eclipse.edc:jti-validation-store-sql", 
 edc-sql-pool = { module = "org.eclipse.edc:sql-pool-apache-commons", version.ref = "edc" }
 edc-sql-test-fixtures = { module = "org.eclipse.edc:sql-test-fixtures", version.ref = "edc" }
 
+identity-hub-spi = { module = "org.eclipse.edc:identity-hub-spi", version.ref = "edc" }
+participant-context-spi = { module = "org.eclipse.edc:participant-context-spi", version.ref = "edc" }
+identityhub-api-authentication = { module = "org.eclipse.edc:identityhub-api-authentication", version.ref = "edc" }
+
 # Third party libs
 assertj = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 awaitility = { module = "org.awaitility:awaitility", version.ref = "awaitility" }

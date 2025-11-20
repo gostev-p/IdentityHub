@@ -136,3 +136,5 @@ include(":dist:bom:identityhub-feature-sql-bom")
 include(":dist:bom:issuerservice-base-bom")
 include(":dist:bom:issuerservice-bom")
 include(":dist:bom:issuerservice-feature-sql-bom")
+
+include("extensions:superuser-seed")

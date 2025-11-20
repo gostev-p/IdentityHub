@@ -78,9 +78,22 @@ public class SelfIssuedTokenVerifierImpl implements SelfIssuedTokenVerifier {
 
         var res = getKid(token).compose(kid -> {
             var rules = new ArrayList<>(tokenValidationRulesRegistry.getRules(DCP_PRESENTATION_SELF_ISSUED_TOKEN_CONTEXT));
-            rules.add(new IssuerKeyIdValidationRule(kid));
+            //rules.add(new IssuerKeyIdValidationRule(kid));
             rules.add(new AudienceValidationRule(pcDid));
-            return tokenValidationService.validate(token, publicKeyResolver, rules);
+
+            // FALL A: kid ist eine DID -> dann bleibt die IssuerKeyIdValidationRule gültig
+            if (kid.startsWith("did:")) {
+                rules.add(new IssuerKeyIdValidationRule(kid));
+                return tokenValidationService.validate(token, publicKeyResolver, rules);
+            }
+
+            // FALL B: kid ist nur ein lokaler Key-Name -> dann validieren wir gegen lokale Keys
+            // und lassen die IssuerKeyIdValidationRule weg
+            return tokenValidationService.validate(token,
+                keyId -> localPublicKeyService.resolveKey(keyId, participantContextId),
+                rules);
+
+            //return tokenValidationService.validate(token, publicKeyResolver, rules);
         });
 
         if (res.failed()) {

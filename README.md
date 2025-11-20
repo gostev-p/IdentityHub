@@ -60,7 +60,27 @@ two ways of running IdentityHub:
 Once the jar file is built, IdentityHub can be launched using this shell command:
 
 ```bash
-java -D"web.http.credentials.port"=10001 -D"web.http.credentials.path"="/api/credentials" -D"web.http.port"=8181 -D"web.http.path"="/api" -D"web.http.identity.port"=8182 -D"web.http.identity.path"="/api/identity" -jar launcher/identityhub/build/libs/identity-hub.jar
+java `
+  -D"web.http.credentials.port"=10001 `
+  -D"web.http.credentials.path"="/api/credentials" `
+  -D"web.http.port"=8181 `
+  -D"web.http.path"="/api" `
+  -D"web.http.identity.port"=8182 `
+  -D"web.http.identity.path"="/api/identity" `
+  -jar launcher/identityhub/build/libs/identity-hub.jar
+```
+
+```bash
+java `
+  -D"web.http.credentials.port"=10001 `
+  -D"web.http.credentials.path"="/api/credentials" `
+  -D"web.http.port"=8181 `
+  -D"web.http.path"="/api" `
+  -D"web.http.identity.port"=8182 `
+  -D"web.http.identity.path"="/api/identity" `
+  -D"web.http.sts.port"=9292 `
+  -D"web.http.sts.path"="/api/sts" `
+  -jar launcher/identityhub/build/libs/identity-hub.jar
 ```
 
 this will expose the Presentation API at `http://localhost:10001/api/presentation` and the Identity API
@@ -79,7 +99,7 @@ docker build -t identity-hub ./launcher/identityhub
 docker run -d --rm --name identity-hub -e "WEB_HTTP_IDENTITY_PORT=8182" -e "WEB_HTTP_IDENTITY_PATH=/api/identity" -e "WEB_HTTP_PRESENTATION_PORT=10001" -e "WEB_HTTP_PRESENTATION_PATH=/api/presentation" -e "EDC_IAM_STS_PRIVATEKEY_ALIAS=privatekey-alias" -e "EDC_IAM_STS_PUBLICKEY_ID=publickey-id" identity-hub:latest
 ```
 
-mit Port Mapping:
+with port mapping:
 
 ```bash
 docker run -d --rm --name identity-hub -e "WEB_HTTP_IDENTITY_PORT=8182" -e "WEB_HTTP_IDENTITY_PATH=/api/identity" -e "WEB_HTTP_PRESENTATION_PORT=10001" -e "WEB_HTTP_PRESENTATION_PATH=/api/presentation" -e "EDC_IAM_STS_PRIVATEKEY_ALIAS=privatekey-alias" -e "EDC_IAM_STS_PUBLICKEY_ID=publickey-id" -p 8182:8182 -p 10001:10001 identity-hub:latest
